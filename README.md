@@ -1,265 +1,144 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Linux Commands — Job Ready</title>
+# ⚙️ Linux Commands — Job Ready (DevOps / SRE / Cloud)
 
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background: #0b0f19;
-        color: #e6e6e6;
-        margin: 0;
-        padding: 0;
-        line-height: 1.6;
-    }
+![Linux](https://img.shields.io/badge/Linux-System%20Admin-FCC624?style=for-the-badge&logo=linux&logoColor=black)
+![DevOps](https://img.shields.io/badge/DevOps-Production%20Ready-0A66C2?style=for-the-badge&logo=amazon-aws&logoColor=white)
+![SRE](https://img.shields.io/badge/SRE-Incident%20Focused-critical?style=for-the-badge)
+![Level](https://img.shields.io/badge/Level-Interview%20Ready-success?style=for-the-badge)
 
-    .container {
-        width: 90%;
-        max-width: 1100px;
-        margin: auto;
-        padding: 20px;
-    }
+---
 
-    h1 {
-        text-align: center;
-        color: #facc15;
-        margin-bottom: 5px;
-    }
+## 🚀 Overview
+Production-focused Linux command reference for DevOps, SRE, and Cloud troubleshooting.
 
-    .badges {
-        text-align: center;
-        margin-bottom: 20px;
-    }
+Focus:
+- Debug production issues
+- Handle incidents
+- Pass interviews
 
-    .badge {
-        display: inline-block;
-        padding: 6px 10px;
-        margin: 3px;
-        border-radius: 5px;
-        font-size: 12px;
-        background: #1f2937;
-        color: white;
-    }
+---
 
-    h2 {
-        color: #38bdf8;
-        margin-top: 30px;
-        border-left: 4px solid #38bdf8;
-        padding-left: 10px;
-    }
+## 📌 System & Basic Info
+```bash
+uname -a        # shows kernel + OS version (first check in any server issue)
+uptime          # system load + running time (detect overload quickly)
+hostname        # identifies machine in network
+whoami          # shows current logged-in user (permission debugging)
+id              # user + group IDs (access control check)
+lscpu           # CPU details (cores, architecture)
+lsblk           # disk partitions and storage devices
 
-    pre {
-        background: #111827;
-        padding: 15px;
-        border-radius: 8px;
-        overflow-x: auto;
-    }
 
-    code {
-        color: #22c55e;
-    }
 
-    .section {
-        margin-bottom: 30px;
-    }
+**⚡ Process Management**
+```bash
+ps aux          # shows all running processes (system snapshot)
+top             # real-time CPU/memory usage (live monitoring)
+htop            # improved version of top (interactive debugging)
+pstree          # shows process hierarchy (parent-child issues)
+pidof <process> # finds process ID by name
+kill <PID>      # sends SIGTERM (graceful shutdown)
+kill -9 <PID>   # force kill (SIGKILL, last option)
+pkill <name>    # kill process by name (fast termination)
 
-    .note {
-        background: #1e293b;
-        padding: 10px;
-        border-left: 4px solid #f59e0b;
-        margin-top: 10px;
-    }
+🧠 Memory & CPU Debugging
+free -h               # shows RAM usage (memory pressure check)
+vmstat 1              # CPU + memory + IO stats every second
+iostat -xz 1          # disk IO bottleneck detection
+top -o %CPU           # sort processes by CPU usage
+top -o %MEM           # sort processes by memory usage
+dmesg | grep -i oom   # detects out-of-memory kills (critical issue)
 
-    ul {
-        padding-left: 20px;
-    }
+💽 Disk & Storage
+df -h                 # disk space usage (partition-level check)
+df -i                 # inode usage (file exhaustion issue)
+du -sh *              # folder sizes (find heavy directories)
+lsblk                 # shows disks and mount points
+find / -size +500M    # finds large files causing disk issues
 
-</style>
-</head>
+📁 File Operations
+ls -la               # lists all files with permissions
+cd                   # change directory
+cp                   # copy files or folders
+mv                   # move or rename files
+rm -rf               # force delete (dangerous in production)
+cat                  # display full file content
+less                 # scroll large files safely
+head                 # first lines of file
+tail -f file         # live log monitoring (critical in debugging)
+find / -name <file>  # search file by name
+grep -r "text" .     # search text inside files recursively
 
-<body>
+🔐 Permissions & Ownership
+chmod 755 file                 # sets read/write/execute permissions
+chmod -R 755 dir              # recursive permission change
+chown user:group file         # changes file ownership
+getfacl file                  # views ACL permissions (advanced control)
+setfacl -m u:user:rwx file    # modifies ACL permissions
 
-<div class="container">
+👥 Users & Groups
+useradd <user>                 # create new system user
+usermod -aG <group> <user>     # add user to group
+passwd <user>                  # set user password
+who                            # shows logged-in users
+w                              # active sessions + system load
+last                           # login history (audit trail)
 
-    <h1>⚙️ Linux Commands — Job Ready</h1>
+🌐 Networking
+ip a                  # shows IP addresses (network identity)
+ip r                  # routing table (network path)
+ping <host>           # checks connectivity
+curl -I <url>         # checks HTTP response headers
+ss -tulnp             # shows open ports and services
+netstat -tulnp        # legacy version of ss
+lsof -i               # shows network connections used by processes
+nc -zv <host> <port>  # tests if port is open
 
-    <div class="badges">
-        <span class="badge">Linux</span>
-        <span class="badge">DevOps</span>
-        <span class="badge">SRE</span>
-        <span class="badge">Interview Ready</span>
-    </div>
+📜 Logs & Debugging
+journalctl -xe              # system-wide error logs
+journalctl -u <service>     # logs for specific service
+dmesg -T                    # kernel logs with timestamps
+tail -f /var/log/syslog    # live system logs
+grep -i error /var/log/*    # searches errors in logs
 
-    <div class="note">
-        Production-focused Linux command reference for DevOps, SRE, and Cloud debugging.
-    </div>
+⚙️ Systemd / Services
+systemctl status <service>    # checks service health
+systemctl restart <service>   # restarts service (fix deploy issues)
+systemctl enable <service>    # enables service at boot
+systemctl --failed            # shows failed services
 
-    <!-- SYSTEM -->
-    <div class="section">
-        <h2>📌 System & Basic Info</h2>
-        <pre><code>uname -a        # kernel + OS details
-uptime          # system load + uptime
-hostname        # system name
-whoami          # current user
-id              # user info
-lscpu           # CPU details
-lsblk           # disk structure</code></pre>
-    </div>
+🔑 SSH & Remote Access
+ssh user@host                     # remote login to server
+ssh -i key.pem user@host          # login using private key
+scp file user@host:/path          # secure file transfer
+rsync -avz file user@host:/path   # efficient file sync
 
-    <!-- PROCESS -->
-    <div class="section">
-        <h2>⚡ Process Management</h2>
-        <pre><code>ps aux
-top
-htop
-pstree
-pidof &lt;process&gt;
-kill &lt;PID&gt;
-kill -9 &lt;PID&gt;
-pkill &lt;name&gt;</code></pre>
-    </div>
+🐳 Docker Essentials
+docker ps                 # running containers (service view)
+docker images             # list available images
+docker run <image>        # start container
+docker logs <container>   # check container logs
+docker exec -it <container> bash  # enter container shell
+docker system prune       # clean unused resources
 
-    <!-- MEMORY -->
-    <div class="section">
-        <h2>🧠 Memory & CPU Debugging</h2>
-        <pre><code>free -h
-vmstat 1
-iostat -xz 1
-top -o %CPU
-top -o %MEM
-dmesg | grep -i oom</code></pre>
-    </div>
+🚨 Incident Debug Kit (CRITICAL)
 
-    <!-- DISK -->
-    <div class="section">
-        <h2>💽 Disk & Storage</h2>
-        <pre><code>df -h
-df -i
-du -sh *
-lsblk
-find / -size +500M</code></pre>
-    </div>
+Used during real production outages:
 
-    <!-- FILES -->
-    <div class="section">
-        <h2>📁 File Operations</h2>
-        <pre><code>ls -la
-cd
-cp
-mv
-rm -rf
-cat
-less
-head
-tail -f file
-find / -name &lt;file&gt;
-grep -r "text" .</code></pre>
-    </div>
+uptime              # checks system load spikes
+top                 # identifies CPU/memory hogs
+free -h             # checks memory exhaustion
+df -h               # checks disk full issues
+ps aux              # process snapshot of system
+ss -tulnp           # checks ports/services
+systemctl status <service>  # service health check
+journalctl -xe      # system failure logs
+dmesg               # kernel-level errors
+curl -I localhost   # checks local service health
 
-    <!-- PERMISSIONS -->
-    <div class="section">
-        <h2>🔐 Permissions & Ownership</h2>
-        <pre><code>chmod 755 file
-chmod -R 755 dir
-chown user:group file
-getfacl file
-setfacl -m u:user:rwx file</code></pre>
-    </div>
-
-    <!-- USERS -->
-    <div class="section">
-        <h2>👥 Users & Groups</h2>
-        <pre><code>useradd &lt;user&gt;
-usermod -aG &lt;group&gt; &lt;user&gt;
-passwd &lt;user&gt;
-who
-w
-last</code></pre>
-    </div>
-
-    <!-- NETWORK -->
-    <div class="section">
-        <h2>🌐 Networking</h2>
-        <pre><code>ip a
-ip r
-ping &lt;host&gt;
-curl -I &lt;url&gt;
-ss -tulnp
-netstat -tulnp
-lsof -i
-nc -zv &lt;host&gt; &lt;port&gt;</code></pre>
-    </div>
-
-    <!-- LOGS -->
-    <div class="section">
-        <h2>📜 Logs & Debugging</h2>
-        <pre><code>journalctl -xe
-journalctl -u &lt;service&gt;
-dmesg -T
-tail -f /var/log/syslog
-grep -i error /var/log/*</code></pre>
-    </div>
-
-    <!-- SYSTEMD -->
-    <div class="section">
-        <h2>⚙️ Systemd / Services</h2>
-        <pre><code>systemctl status &lt;service&gt;
-systemctl restart &lt;service&gt;
-systemctl enable &lt;service&gt;
-systemctl --failed</code></pre>
-    </div>
-
-    <!-- SSH -->
-    <div class="section">
-        <h2>🔑 SSH & Remote Access</h2>
-        <pre><code>ssh user@host
-ssh -i key.pem user@host
-scp file user@host:/path
-rsync -avz file user@host:/path</code></pre>
-    </div>
-
-    <!-- DOCKER -->
-    <div class="section">
-        <h2>🐳 Docker Essentials</h2>
-        <pre><code>docker ps
-docker images
-docker run &lt;image&gt;
-docker logs &lt;container&gt;
-docker exec -it &lt;container&gt; bash
-docker system prune</code></pre>
-    </div>
-
-    <!-- INCIDENT -->
-    <div class="section">
-        <h2>🚨 Incident Debug Kit</h2>
-        <pre><code>uptime
-top
-free -h
-df -h
-ps aux
-ss -tulnp
-systemctl status &lt;service&gt;
-journalctl -xe
-dmesg
-curl -I localhost</code></pre>
-    </div>
-
-    <!-- MAP -->
-    <div class="section">
-        <h2>🧩 Interview Signal Map</h2>
-        <ul>
-            <li>CPU spike → top, vmstat</li>
-            <li>Memory leak → free, dmesg</li>
-            <li>Service crash → systemctl, journalctl</li>
-            <li>Network issue → ss, curl, ping</li>
-            <li>Disk full → df, du</li>
-            <li>Process issue → ps, kill</li>
-        </ul>
-    </div>
-
-</div>
-
-</body>
-</html>
+🧩 Interview Signal Map
+CPU spike → top, vmstat
+Memory leak → free, dmesg
+Service crash → systemctl, journalctl
+Network failure → ss, curl, ping
+Disk full → df, du
+Process issue → ps, kill
