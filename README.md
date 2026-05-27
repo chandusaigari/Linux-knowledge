@@ -26,7 +26,7 @@ whoami          # shows current logged-in user (permission debugging)
 id              # user + group IDs (access control check)
 lscpu           # CPU details (cores, architecture)
 lsblk           # disk partitions and storage devices
-
+```bash
 
 
 **⚡ Process Management**
