@@ -30,7 +30,7 @@ lsblk           # disk partitions and storage devices
 
 
 **⚡ Process Management**
-```bash
+```
 ps aux          # shows all running processes (system snapshot)
 top             # real-time CPU/memory usage (live monitoring)
 htop            # improved version of top (interactive debugging)
@@ -39,23 +39,26 @@ pidof <process> # finds process ID by name
 kill <PID>      # sends SIGTERM (graceful shutdown)
 kill -9 <PID>   # force kill (SIGKILL, last option)
 pkill <name>    # kill process by name (fast termination)
-
-🧠 Memory & CPU Debugging
+```
+**🧠 Memory & CPU Debugging**
+```
 free -h               # shows RAM usage (memory pressure check)
 vmstat 1              # CPU + memory + IO stats every second
 iostat -xz 1          # disk IO bottleneck detection
 top -o %CPU           # sort processes by CPU usage
 top -o %MEM           # sort processes by memory usage
 dmesg | grep -i oom   # detects out-of-memory kills (critical issue)
-
-💽 Disk & Storage
+```
+**💽 Disk & Storage**
+```
 df -h                 # disk space usage (partition-level check)
 df -i                 # inode usage (file exhaustion issue)
 du -sh *              # folder sizes (find heavy directories)
 lsblk                 # shows disks and mount points
 find / -size +500M    # finds large files causing disk issues
-
-📁 File Operations
+```
+**📁 File Operations**
+```
 ls -la               # lists all files with permissions
 cd                   # change directory
 cp                   # copy files or folders
@@ -67,23 +70,28 @@ head                 # first lines of file
 tail -f file         # live log monitoring (critical in debugging)
 find / -name <file>  # search file by name
 grep -r "text" .     # search text inside files recursively
+```
 
-🔐 Permissions & Ownership
+**🔐 Permissions & Ownership**
+```
 chmod 755 file                 # sets read/write/execute permissions
 chmod -R 755 dir              # recursive permission change
 chown user:group file         # changes file ownership
 getfacl file                  # views ACL permissions (advanced control)
 setfacl -m u:user:rwx file    # modifies ACL permissions
+```
 
-👥 Users & Groups
+**👥 Users & Groups**
+```
 useradd <user>                 # create new system user
 usermod -aG <group> <user>     # add user to group
 passwd <user>                  # set user password
 who                            # shows logged-in users
 w                              # active sessions + system load
 last                           # login history (audit trail)
-
-🌐 Networking
+```
+**🌐 Networking**
+```
 ip a                  # shows IP addresses (network identity)
 ip r                  # routing table (network path)
 ping <host>           # checks connectivity
@@ -92,35 +100,44 @@ ss -tulnp             # shows open ports and services
 netstat -tulnp        # legacy version of ss
 lsof -i               # shows network connections used by processes
 nc -zv <host> <port>  # tests if port is open
+```
 
-📜 Logs & Debugging
+**📜 Logs & Debugging**
+```
 journalctl -xe              # system-wide error logs
 journalctl -u <service>     # logs for specific service
 dmesg -T                    # kernel logs with timestamps
 tail -f /var/log/syslog    # live system logs
 grep -i error /var/log/*    # searches errors in logs
+```
 
-⚙️ Systemd / Services
+**⚙️ Systemd / Services**
+```
 systemctl status <service>    # checks service health
 systemctl restart <service>   # restarts service (fix deploy issues)
 systemctl enable <service>    # enables service at boot
 systemctl --failed            # shows failed services
-
-🔑 SSH & Remote Access
+```
+**🔑 SSH & Remote Access**
+```
 ssh user@host                     # remote login to server
 ssh -i key.pem user@host          # login using private key
 scp file user@host:/path          # secure file transfer
 rsync -avz file user@host:/path   # efficient file sync
+```
 
-🐳 Docker Essentials
+**🐳 Docker Essentials**
+```
 docker ps                 # running containers (service view)
 docker images             # list available images
 docker run <image>        # start container
 docker logs <container>   # check container logs
 docker exec -it <container> bash  # enter container shell
 docker system prune       # clean unused resources
+```
 
-🚨 Incident Debug Kit (CRITICAL)
+**🚨 Incident Debug Kit (CRITICAL)**
+```
 
 Used during real production outages:
 
@@ -134,11 +151,14 @@ systemctl status <service>  # service health check
 journalctl -xe      # system failure logs
 dmesg               # kernel-level errors
 curl -I localhost   # checks local service health
+```
 
-🧩 Interview Signal Map
+**🧩 Interview Signal Map**
+```
 CPU spike → top, vmstat
 Memory leak → free, dmesg
 Service crash → systemctl, journalctl
 Network failure → ss, curl, ping
 Disk full → df, du
 Process issue → ps, kill
+```
