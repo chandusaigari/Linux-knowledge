@@ -18,7 +18,7 @@ Focus:
 ---
 
 ## 📌 System & Basic Info
-```bash
+```
 uname -a        # shows kernel + OS version (first check in any server issue)
 uptime          # system load + running time (detect overload quickly)
 hostname        # identifies machine in network
@@ -26,7 +26,7 @@ whoami          # shows current logged-in user (permission debugging)
 id              # user + group IDs (access control check)
 lscpu           # CPU details (cores, architecture)
 lsblk           # disk partitions and storage devices
-```bash
+```
 
 
 **⚡ Process Management**
