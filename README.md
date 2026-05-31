@@ -8,7 +8,7 @@
 ---
 
 ## 🚀 Overview
-Production-focused Linux command reference for DevOps, SRE, and Cloud troubleshooting.
+Production-focused Linux command reference for DevOps, SRE, and Cloud troubleshooting. 
 
 Focus:
 - Debug production issues
