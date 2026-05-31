@@ -60,7 +60,7 @@ def main():
 
     num_commits = get_positive_int("How many commits do you want to make", 20)
     repo_path = get_repo_path("Enter the path to your local git repository", ".")
-    filename = get_filename("Enter the filename to modify for commits", "readme.md")
+    filename = get_filename("Enter the filename to modify for commits", "README.md")
 
     print(f"\nMaking {num_commits} commits in repo: {repo_path}\nModifying file: {filename}\n")
 
